@@ -1,0 +1,21 @@
+{
+	"forge_marker": 1,
+
+	"defaults": {
+		"model": "forge:multi-layer",
+		"transform": "forge:default-block"
+	},
+
+	"variants": {
+		"normal": [{
+			"custom": {
+				"base": "anticactusmod:toxicity_extractor#base",
+				"Solid": "anticactusmod:toxicity_extractor#base",
+				"Translucent": "anticactusmod:toxicity_extractor#collector"
+			}
+		}],
+		
+		"base": [{ "model": "anticactusmod:toxicity_extractor" }],
+		"collector": [{ "model": "anticactusmod:toxicity_extractor_collector" }]
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "anticactusmod:items/reinforced_syringe_empty"
+	}
+}

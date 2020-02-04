@@ -1,0 +1,16 @@
+[
+{
+  "modid": "anticactusmod",
+  "name": "Anti Cactus Mod",
+  "description": "Meme mod full of in-jokes. :33333333333333333 obese",
+  "version": "0.0.1",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["LimeSlayer420", "Dystopius"],
+  "credits": "Dystopius, for textures, models, ideas, and inspiration.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
