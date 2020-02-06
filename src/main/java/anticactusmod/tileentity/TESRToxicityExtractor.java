@@ -23,15 +23,15 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 public class TESRToxicityExtractor extends TileEntitySpecialRenderer<TileEntityToxicityExtractor> {
 	private static final SimpleModel TOXICITY_FLUID_MODEL= new SimpleModel(new SimpleQuad[]
-	{
-			new SimpleQuad(EnumFacing.UP, RenderUtils.PX_6, RenderUtils.PX_11, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, 1, 1),
-			new SimpleQuad(EnumFacing.DOWN, RenderUtils.PX_10, RenderUtils.PX_7, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
-					
-			new SimpleQuad(EnumFacing.NORTH, RenderUtils.PX_10, RenderUtils.PX_11, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
-			new SimpleQuad(EnumFacing.SOUTH, RenderUtils.PX_6, RenderUtils.PX_11, RenderUtils.PX_10, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
-					
-			new SimpleQuad(EnumFacing.EAST, RenderUtils.PX_10, RenderUtils.PX_11, RenderUtils.PX_10, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
-			new SimpleQuad(EnumFacing.WEST, RenderUtils.PX_6, RenderUtils.PX_11, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1)
+	{	
+		new SimpleQuad(EnumFacing.DOWN, RenderUtils.PX_10, RenderUtils.PX_7, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
+		new SimpleQuad(EnumFacing.UP, RenderUtils.PX_6, RenderUtils.PX_11, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, 1, 1),
+		
+		new SimpleQuad(EnumFacing.NORTH, RenderUtils.PX_10, RenderUtils.PX_11, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
+		new SimpleQuad(EnumFacing.SOUTH, RenderUtils.PX_6, RenderUtils.PX_11, RenderUtils.PX_10, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
+
+		new SimpleQuad(EnumFacing.EAST, RenderUtils.PX_10, RenderUtils.PX_11, RenderUtils.PX_10, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
+		new SimpleQuad(EnumFacing.WEST, RenderUtils.PX_6, RenderUtils.PX_11, RenderUtils.PX_6, RenderUtils.PX_4, RenderUtils.PX_4, 0, 0, RenderUtils.PX_1, RenderUtils.PX_1),
 	}, new ResourceLocation(AntiCactusMod.MODID + ":textures/blocks/toxicity.png"));
 	
 	@Override
@@ -62,51 +62,38 @@ public class TESRToxicityExtractor extends TileEntitySpecialRenderer<TileEntityT
 			GlStateManager.pushMatrix();
 			
 			bindTexture(TOXICITY_FLUID_MODEL.texture);
-			
-			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder buffer = tessellator.getBuffer();
-			
-			buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			GlStateManager.translate(x, y, z);
 
-			GlStateManager.translate(x + RenderUtils.PX_10, y + RenderUtils.PX_7, z + RenderUtils.PX_6);
-			GlStateManager.scale(1, Math.min(((te.getWorld().getTotalWorldTime() - te.startTime) + partialTicks) / (double)te.ticksRequired, 1), 1);
-			GlStateManager.translate(-RenderUtils.PX_10, -RenderUtils.PX_7, -RenderUtils.PX_6);
-			
-			TOXICITY_FLUID_MODEL.build(buffer);
-			
-			tessellator.draw();
-			buffer.reset();
+			TOXICITY_FLUID_MODEL.init();
+			TOXICITY_FLUID_MODEL.scale(1F, Math.min(((te.getWorld().getTotalWorldTime() - te.startTime) + partialTicks) / (float)te.ticksRequired, 1F), 1F);
+			TOXICITY_FLUID_MODEL.build();
+			TOXICITY_FLUID_MODEL.render();
 			
 			GlStateManager.disableBlend();
 		    RenderHelper.disableStandardItemLighting();
 			GlStateManager.popMatrix();
 		}
 		else if(te.isFull) {
-			GlStateManager.pushMatrix();
+			GlStateManager.pushMatrix(); 
+			
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.enableBlend();
 			RenderHelper.enableStandardItemLighting();
 			
 			GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1f);
 			GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-			
+
 			bindTexture(TOXICITY_FLUID_MODEL.texture);
-			
-			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder buffer = tessellator.getBuffer();
-			
-			buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-			
 			GlStateManager.translate(x, y, z);
 			
-			TOXICITY_FLUID_MODEL.build(buffer);
-			
-			tessellator.draw();
-			buffer.reset();
+			TOXICITY_FLUID_MODEL.init();
+			TOXICITY_FLUID_MODEL.build();
+			TOXICITY_FLUID_MODEL.render();
 			
 			GlStateManager.disableRescaleNormal();
 			GlStateManager.disableBlend();
 		    RenderHelper.disableStandardItemLighting();
+		    
 			GlStateManager.popMatrix();
 		}
 	}
