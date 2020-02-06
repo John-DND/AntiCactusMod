@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import anticactusmod.block.ModBlocks;
+import anticactusmod.gui.ModGuiHandler;
 import anticactusmod.item.ModItems;
 import anticactusmod.net.PacketRequestUpdateToxicityExtractor;
 import anticactusmod.net.PacketUpdateToxicityExtractor;
@@ -75,6 +76,8 @@ public class AntiCactusMod
 		network.registerMessage(new PacketRequestUpdateToxicityExtractor.Handler(), PacketRequestUpdateToxicityExtractor.class, 1, Side.SERVER);
 		
 		proxy.registerRenderers();
+		
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
     }
 
     @EventHandler

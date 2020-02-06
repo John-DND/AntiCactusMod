@@ -77,6 +77,7 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 				AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
 						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));		
 			}	
+			markDirty();
 		}
 	}
 	
@@ -88,6 +89,7 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 				AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
 						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));	
 			}	
+			markDirty();
 		}	
 	}
 	
@@ -105,7 +107,9 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 				inventory.extractItem(0, 1, false);
 				
 				AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
-						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));	
+						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
+				
+				markDirty();
 			}
 		}
 	}
