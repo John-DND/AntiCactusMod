@@ -19,6 +19,28 @@ public class SimpleQuad {
 	public final Vector2f texVertex3;
 	public final Vector2f texVertex4;
 
+	/**
+	 * Constructs a quad from the specified arguments using default winding order (the 
+	 * vertices are created starting with the upper-left vertex and going around counterclockwise). 
+	 * As w and h increase, the quad increases in size down and right.
+	 * 
+	 * What is "up" and what is "left" is determined by the direction we're facing. For up and down facing
+	 * quads, "up" is south (positive Z) and "left" is east (positive X).
+	 * 
+	 * To visualize how this works for the other axes, imagine positioning your character such that the entire quad
+	 * is visible. "up" and "left" now correspond to up and left on your screen. 
+	 * 
+	 * @param facing The direction the quad faces
+	 * @param x The x-coordinate of the origin of the quad
+	 * @param y The y-coordinate of the origin of the quad
+	 * @param z The z-coordinate of the origin of the quad
+	 * @param w The width of the quad
+	 * @param h The height of the quad
+	 * @param u The x-coordinate of the UV origin
+	 * @param v The y-coordinate of the UV origin
+	 * @param uvW The width of the UV 
+	 * @param uvH The height of the UV 
+	 */
 	public SimpleQuad(EnumFacing facing, float x, float y, float z, float w, float h, float u, float v, float uvW, float uvH) {
 		this.facing = facing;
 		

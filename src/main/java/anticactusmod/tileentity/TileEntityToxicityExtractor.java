@@ -6,6 +6,7 @@ import anticactusmod.init.AntiCactusMod;
 import anticactusmod.net.PacketRequestUpdateToxicityExtractor;
 import anticactusmod.net.PacketUpdateToxicityExtractor;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,6 +27,7 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 	
 	static {
 		recipes.put(Item.getItemFromBlock(Blocks.CACTUS), 200);
+		recipes.put(Items.WOODEN_HOE, 200);
 	}
 
 	private ItemStackHandler inventory = new ItemStackHandler(1);
@@ -73,11 +75,7 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 			isProcessing = true;
 			isFull = false;
 			
-			if(!world.isRemote) {
-				AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
-						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));		
-			}	
-			markDirty();
+			updateClient();	
 		}
 	}
 	
@@ -85,11 +83,7 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 		if(isFull) {
 			isFull = false;
 			
-			if(!world.isRemote) {
-				AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
-						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));	
-			}	
-			markDirty();
+			updateClient();
 		}	
 	}
 	
@@ -105,12 +99,18 @@ public class TileEntityToxicityExtractor extends TileEntity implements ITickable
 				isFull = true;
 				
 				inventory.extractItem(0, 1, false);
-				
-				AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
-						new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
-				
-				markDirty();
+		
+				updateClient();
 			}
+		}
+	}
+	
+	void updateClient() {
+		if(!world.isRemote) {
+			AntiCactusMod.network.sendToAllAround(new PacketUpdateToxicityExtractor(TileEntityToxicityExtractor.this), 
+					new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
+			
+			markDirty();
 		}
 	}
 }

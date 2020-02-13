@@ -41,6 +41,7 @@ public class PacketRequestUpdateToxicityExtractor implements IMessage {
 		public PacketUpdateToxicityExtractor onMessage(PacketRequestUpdateToxicityExtractor message, MessageContext ctx) {
 			World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(message.dimension);
 			TileEntityToxicityExtractor te = (TileEntityToxicityExtractor)world.getTileEntity(message.pos);
+			
 			if (te != null) {
 				return new PacketUpdateToxicityExtractor(te);
 			} else {

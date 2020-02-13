@@ -26,6 +26,7 @@ import anticactusmod.item.ModItems;
 import anticactusmod.net.PacketRequestUpdateToxicityExtractor;
 import anticactusmod.net.PacketUpdateToxicityExtractor;
 import anticactusmod.proxy.CommonProxy;
+import anticactusmod.render.ModModels;
 
 @Mod(modid = AntiCactusMod.MODID, name = AntiCactusMod.MODNAME, version = AntiCactusMod.VERSION, acceptedMinecraftVersions=AntiCactusMod.ACCEPTED_MINECRAFT_VERSIONS)
 public class AntiCactusMod
@@ -83,7 +84,7 @@ public class AntiCactusMod
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-       
+		ModModels.load();
     }
     
 	@EventHandler
